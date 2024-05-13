@@ -9,21 +9,21 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace CalcAE
+namespace CalcTime
 {
 	public class SwFps :Control
 	{
-		public delegate void LockChangedEventHandler(object sender, LockChangedEventArgs e);
+		public delegate void FpsChangedEventHandler(object sender, FpsChangedEventArgs e);
 
 		//イベントデリゲートの宣言
-		public event LockChangedEventHandler LockChanged;
+		public event FpsChangedEventHandler FpsChanged;
 
-		protected virtual void OnLockChanged(LockChangedEventArgs e)
+		protected virtual void OnFpsChanged(FpsChangedEventArgs e)
 		{
-			LockChanged?.Invoke(this, e);
+			FpsChanged?.Invoke(this, e);
 		}
 		private NumSVG[] m_num = new NumSVG[2];
-		private NumSVG m_lock = new NumSVG();
+		private LockBtn m_lock = new LockBtn();
 		private FPS m_Fps = FPS.fps24;
 		[Category("SVG")]
 		public FPS Fps
@@ -33,21 +33,26 @@ namespace CalcAE
 			{
 				if (m_IsLocked == false)
 				{
+					bool b = (m_Fps == value);
 					m_Fps = value;
 					if (m_Fps == FPS.fps24)
-					{
-						m_num[0].ForeColor = m_ActiveColor;
-						m_num[0].BackColor = m_NoactiveColor;
-						m_num[1].ForeColor = m_NoactiveColor;
-						m_num[1].BackColor = m_ActiveColor;
-					}
-					else
 					{
 						m_num[0].ForeColor = m_NoactiveColor;
 						m_num[0].BackColor = m_ActiveColor;
 						m_num[1].ForeColor = m_ActiveColor;
 						m_num[1].BackColor = m_NoactiveColor;
 					}
+					else
+					{
+						m_num[0].ForeColor = m_ActiveColor;
+						m_num[0].BackColor = m_NoactiveColor;
+						m_num[1].ForeColor = m_NoactiveColor;
+						m_num[1].BackColor = m_ActiveColor;
+					}
+					m_num[0].Redraw();
+					m_num[1].Redraw();
+					int f = (int)m_Fps;
+					if (b) OnFpsChanged(new FpsChangedEventArgs((double)f));
 				}
 			}
 		}
@@ -58,44 +63,50 @@ namespace CalcAE
 			get { return m_ActiveColor; }
 			set { m_ActiveColor = value; this.Invalidate(); }
 		}
+		private Color m_NoactiveColor = SystemColors.Window;
 		[Category("SVG")]
 		public Color NoactiveColor
 		{
 			get { return m_NoactiveColor; }
 			set { m_NoactiveColor = value; this.Invalidate(); }
 		}
-		private Color m_NoactiveColor = SystemColors.Window;
 		[Category("SVG")]
-
-		private bool m_IsLocked = false;
-		public bool IsLocked
+		public new Color BackColor
 		{
-			get { return m_IsLocked; }
+			get { return base.BackColor; }
 			set 
 			{ 
-				m_IsLocked = value;
-				if (m_IsLocked)
-				{
-					m_lock.SVG_ICON = SVG_ICON.lock_;
-					m_num[0].PushEnabled = false;
-					m_num[1].PushEnabled = false;
-
-				}
-				else
-				{
-					m_lock.SVG_ICON = SVG_ICON.lock_open_right;
-					m_num[0].PushEnabled = true;
-					m_num[1].PushEnabled = true;
-				}
-				m_lock.Redraw();
-				m_num[0].Redraw();
-				m_num[1].Redraw();
+				base.BackColor = value;
+				m_lock.BackColor = value;
+				this.Invalidate(); 
+			}
+		}
+		[Category("SVG")]
+		public new Color ForeColor
+		{
+			get { return base.ForeColor; }
+			set
+			{
+				base.ForeColor = value;
+				m_lock.ForeColor = value;
 				this.Invalidate();
+			}
+		}
+		private bool m_IsLocked = false;
+		[Category("SVG")]
+		public bool IsLocked
+		{
+			get { return m_lock.IsLocked; }
+			set 
+			{ 
+				m_lock.IsLocked = value;
 			}
 		}
 		public SwFps() 
 		{
 			DoubleBuffered = true;
+			m_lock.SideOffset = 2;
+			m_lock.TBOffset = 2;
 			this.Controls.Add(m_lock);
 			for (int i = 0; i < m_num.Length; i++)
 			{
@@ -104,6 +115,7 @@ namespace CalcAE
 				m_num[i].Size = new Size(32, 24);
 				m_num[i].SideOffset = 1;
 				m_num[i].TBOffset = 1;
+				m_num[i].PushEnabled = false;
 				this.Controls.Add(m_num[i]);
 			}
 			
@@ -111,18 +123,21 @@ namespace CalcAE
 			m_num[1].SVG_ICON = SVG_ICON.fps30;
 			m_lock.SVG_ICON = SVG_ICON.lock_open_right;
 
-			m_lock.MClick += (sender, e) =>
+			m_num[0].MouseUp += (sender, e) =>
 			{
-				IsLocked = ! m_IsLocked;
-			};
-			m_num[0].MClick += (sender, e) =>
-			{
-				if (m_IsLocked)
+				if (IsLocked == false)
 				{
 					Fps = FPS.fps24;
 				}
 			};
-
+			m_num[1].MouseUp += (sender, e) =>
+			{
+				if (IsLocked == false)
+				{
+					Fps = FPS.fps30;
+				}
+			};
+			IsLocked = false;
 			Fps = FPS.fps24;
 			this.Size = new Size(79, 26);
 			ChkSize();
@@ -158,17 +173,18 @@ namespace CalcAE
 			}
 		}
 	}
+	public class FpsChangedEventArgs : EventArgs
+	{
+		public double Fps;
+		public FpsChangedEventArgs(double fps)
+		{
+			this.Fps = fps;
+		}
+	}
 	public enum FPS
 	{
 		fps24=24,
 		fps30=30
 	}
-	public class LockChangedEventArgs : EventArgs
-	{
-		public bool lockValue;
-		public LockChangedEventArgs(bool lockValue)
-		{
-			this.lockValue = lockValue;
-		}
-	}
+	
 }

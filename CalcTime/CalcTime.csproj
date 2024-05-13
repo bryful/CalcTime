@@ -72,12 +72,17 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="LockBtn.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NumFrame.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="NumSVG.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SVGFNT.cs" />
     <Compile Include="SwFps.cs">
       <SubType>Component</SubType>
     </Compile>

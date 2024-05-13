@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CalcAE.Properties
+namespace CalcTime.Properties
 {
 
 

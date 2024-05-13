@@ -14,7 +14,7 @@ using Svg;
 using System.Diagnostics;
 using System.Xml;
 
-namespace CalcAE
+namespace CalcTime
 {
 	public class TenKeys :Control
 	{
@@ -32,6 +32,10 @@ namespace CalcAE
 			}
 			this.Size = new Size(120, 120);
 			CHkSize();
+		}
+		private int Xpos(int c)
+		{
+			return 10;
 		}
 		private void CHkSize()
 		{
