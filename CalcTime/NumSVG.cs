@@ -18,6 +18,21 @@ namespace CalcAE
 {
     public class NumSVG : Control
     {
+		public event EventHandler MClick;
+
+		protected virtual void OnMClick(EventArgs e)
+		{
+			MClick?.Invoke(this, e);
+		}
+		public delegate void LockChangedEventHandler(object sender, LockChangedEventArgs e);
+
+		//イベントデリゲートの宣言
+		public event LockChangedEventHandler LockChanged;
+
+		protected virtual void OnLockChanged(LockChangedEventArgs e)
+		{
+			LockChanged?.Invoke(this, e);
+		}
 		// ***************************************************************
 		// ***************************************************************
 		private Bitmap m_bitmap = new Bitmap(20, 30);
@@ -30,7 +45,7 @@ namespace CalcAE
 			{
 				m_SVG_ICON = value;
 				ChkOffScr();
-				this.Invalidate();
+				this.Refresh();
 			}
 		}
 		[Category("SVG")]
@@ -132,7 +147,11 @@ namespace CalcAE
 
 			ChkOffScr();
 		}
-		
+		public void Redraw()
+		{
+			ChkOffScr();
+			this.Invalidate ();
+		}
 		private void ChkOffScr()
 		{
 			m_bitmap = new Bitmap(base.Width, base.Height);
@@ -207,6 +226,7 @@ namespace CalcAE
 		}
 		protected override void OnMouseUp(MouseEventArgs e)
 		{
+			bool b = false;
 			if ((m_SVG_ICON != SVG_ICON.None)&& (m_PushEnabled == true))
 			{
 				Control senderControl = (Control)this;
@@ -214,8 +234,10 @@ namespace CalcAE
 					senderControl.ClientRectangle);
 				ControlPaint.FillReversibleRectangle(screenRectangle,
 					m_RevColor);
+				b = true;
 			}
 			base.OnMouseUp(e);
+			if (b) OnMClick(new EventArgs());
 		}
 	}
 	public enum SVG_ICON
@@ -240,7 +262,9 @@ namespace CalcAE
 		cls,
 		fps24,
 		fps30,
-		sec
+		sec,
+		lock_,
+		lock_open_right
 	}
 	public enum WAKU_STAT
 	{

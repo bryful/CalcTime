@@ -28,11 +28,27 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.numSVG1 = new CalcAE.NumSVG();
 			this.tenKeys1 = new CalcAE.TenKeys();
 			this.timeEdit2 = new CalcAE.TimeEdit();
 			this.timeEdit1 = new CalcAE.TimeEdit();
 			this.swFps1 = new CalcAE.SwFps();
 			this.SuspendLayout();
+			// 
+			// numSVG1
+			// 
+			this.numSVG1.Location = new System.Drawing.Point(164, 13);
+			this.numSVG1.Name = "numSVG1";
+			this.numSVG1.PushEnabled = true;
+			this.numSVG1.RectColor = System.Drawing.Color.Gray;
+			this.numSVG1.RevColor = System.Drawing.Color.White;
+			this.numSVG1.SideOffset = 0;
+			this.numSVG1.Size = new System.Drawing.Size(20, 30);
+			this.numSVG1.SVG_ICON = CalcAE.SVG_ICON.lock_open_right;
+			this.numSVG1.TabIndex = 5;
+			this.numSVG1.TBOffset = 0;
+			this.numSVG1.Text = "numSVG1";
+			this.numSVG1.WAKU_STAT = CalcAE.WAKU_STAT.None;
 			// 
 			// tenKeys1
 			// 
@@ -66,11 +82,14 @@
 			// 
 			// swFps1
 			// 
+			this.swFps1.ActiveColor = System.Drawing.SystemColors.ControlText;
 			this.swFps1.BackColor = System.Drawing.SystemColors.Window;
 			this.swFps1.Fps = CalcAE.FPS.fps24;
+			this.swFps1.IsLocked = false;
 			this.swFps1.Location = new System.Drawing.Point(12, 9);
 			this.swFps1.Name = "swFps1";
-			this.swFps1.Size = new System.Drawing.Size(78, 29);
+			this.swFps1.NoactiveColor = System.Drawing.SystemColors.Window;
+			this.swFps1.Size = new System.Drawing.Size(121, 29);
 			this.swFps1.TabIndex = 0;
 			this.swFps1.Text = "swFps1";
 			// 
@@ -79,6 +98,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(237, 322);
+			this.Controls.Add(this.numSVG1);
 			this.Controls.Add(this.tenKeys1);
 			this.Controls.Add(this.timeEdit2);
 			this.Controls.Add(this.timeEdit1);
@@ -96,6 +116,7 @@
 		private TimeEdit timeEdit1;
 		private TimeEdit timeEdit2;
 		private TenKeys tenKeys1;
+		private NumSVG numSVG1;
 	}
 }
 

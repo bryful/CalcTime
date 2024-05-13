@@ -145,5 +145,9 @@
   <ItemGroup>
     <EmbeddedResource Include="svg\sec.svg" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="svg\lock_.svg" />
+    <EmbeddedResource Include="svg\lock_open_right.svg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
