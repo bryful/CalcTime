@@ -39,7 +39,7 @@
 			// numFrame2
 			// 
 			this.numFrame2.ForeColor = System.Drawing.SystemColors.ControlDark;
-			this.numFrame2.Location = new System.Drawing.Point(121, 12);
+			this.numFrame2.Location = new System.Drawing.Point(137, 12);
 			this.numFrame2.Name = "numFrame2";
 			this.numFrame2.NumSize = new System.Drawing.Size(12, 20);
 			this.numFrame2.Size = new System.Drawing.Size(96, 20);
@@ -50,10 +50,10 @@
 			// numFrame1
 			// 
 			this.numFrame1.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-			this.numFrame1.Location = new System.Drawing.Point(125, 84);
+			this.numFrame1.Location = new System.Drawing.Point(12, 84);
 			this.numFrame1.Name = "numFrame1";
 			this.numFrame1.NumSize = new System.Drawing.Size(12, 20);
-			this.numFrame1.Size = new System.Drawing.Size(108, 20);
+			this.numFrame1.Size = new System.Drawing.Size(216, 20);
 			this.numFrame1.TabIndex = 7;
 			this.numFrame1.Text = "numFrame1";
 			this.numFrame1.Value = 12;
@@ -63,18 +63,18 @@
 			this.swFps1.ActiveColor = System.Drawing.SystemColors.ControlText;
 			this.swFps1.Fps = CalcTime.FPS.fps24;
 			this.swFps1.IsLocked = false;
-			this.swFps1.Location = new System.Drawing.Point(12, 12);
+			this.swFps1.Location = new System.Drawing.Point(12, 1);
 			this.swFps1.Name = "swFps1";
 			this.swFps1.NoactiveColor = System.Drawing.SystemColors.Window;
-			this.swFps1.Size = new System.Drawing.Size(100, 20);
+			this.swFps1.Size = new System.Drawing.Size(83, 31);
 			this.swFps1.TabIndex = 6;
 			this.swFps1.Text = "swFps1";
 			// 
 			// tenKeys1
 			// 
-			this.tenKeys1.Location = new System.Drawing.Point(55, 156);
+			this.tenKeys1.Location = new System.Drawing.Point(12, 156);
 			this.tenKeys1.Name = "tenKeys1";
-			this.tenKeys1.Size = new System.Drawing.Size(178, 169);
+			this.tenKeys1.Size = new System.Drawing.Size(221, 169);
 			this.tenKeys1.TabIndex = 4;
 			this.tenKeys1.Text = "tenKeys1";
 			// 
@@ -104,7 +104,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(428, 380);
+			this.ClientSize = new System.Drawing.Size(244, 328);
 			this.Controls.Add(this.numFrame2);
 			this.Controls.Add(this.numFrame1);
 			this.Controls.Add(this.swFps1);

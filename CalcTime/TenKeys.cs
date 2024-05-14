@@ -18,7 +18,7 @@ namespace CalcTime
 {
 	public class TenKeys :Control
 	{
-		private NumSVG[] m_keys = new NumSVG[14]; 
+		private NumSVG[] m_keys = new NumSVG[20]; 
 
 		public TenKeys()
 		{
